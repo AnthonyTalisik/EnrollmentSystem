@@ -7,24 +7,26 @@ namespace EnrollmentSystem
 {
     public partial class EnrollmentEntryForm : Form
     {
+        // Connection string to the Access database
         string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Talisik\OneDrive\文档\School Works\APPSDEV22.accdb";
 
         public EnrollmentEntryForm()
         {
             InitializeComponent();
 
-            // Subscribe to KeyDown event for EDP code input
+            // Subscribe to KeyDown "Enter key" event for EDP code input
             EdpCodeTextBox.KeyDown += EdpCodeTextBox_KeyDown;
 
-            // Optional: Clear grid at start
+            // Clear grid at start
             EnrollmentDataGridView.DataSource = null;
 
-            // Optional: Setup DataGridView appearance
+            // Setup DataGridView appearance
             EnrollmentDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             EnrollmentDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             EnrollmentDataGridView.ReadOnly = true;
         }
 
+        // Event handler for EDP code input when "Enter" key is pressed
         private void EdpCodeTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -42,6 +44,7 @@ namespace EnrollmentSystem
             }
         }
 
+        // Method to load subject schedule based on EDP code
         private void LoadSubjectByEDP(string edpCode)
         {
             try
@@ -69,7 +72,7 @@ namespace EnrollmentSystem
 
                             EnrollmentDataGridView.DataSource = dt;
 
-                            // Set friendly column headers
+                            // Friendly column headers
                             EnrollmentDataGridView.Columns["SSFEDPCODE"].HeaderText = "EDP Code";
                             EnrollmentDataGridView.Columns["SSFSUBJCODE"].HeaderText = "Subject Code";
                             EnrollmentDataGridView.Columns["SSFSTARTTIME"].HeaderText = "Start Time";
@@ -90,7 +93,7 @@ namespace EnrollmentSystem
             }
         }
 
-
+        // Event handler for Save Entry button click
         private void SaveEntryButton_Click(object sender, EventArgs e)
         {
             try
@@ -128,9 +131,9 @@ namespace EnrollmentSystem
                         // Save selected subjects
                         foreach (DataGridViewRow row in EnrollmentDataGridView.SelectedRows)
                         {
-                            // Assuming you have a table for enrolled subjects
+                           
                             string subjectCode = row.Cells["SSFSUBJCODE"].Value.ToString();
-                            // Add logic to save the subject code to the enrollment record
+                        
                         }
 
                         MessageBox.Show("Student entry saved successfully.");
@@ -158,5 +161,18 @@ namespace EnrollmentSystem
             }
         }
 
+        // Clear fields on Cancel button click
+        private void CancelEntryButton_Click(object sender, EventArgs e)
+        {
+            // Clear fields
+            IdNumberTextBox.Clear();
+            NameTextBox.Clear();
+            CourseTextBox.Clear();
+            YearTextBox.Clear();
+            EncoderTextBox.Clear();
+            TotalUnitsTextBox.Clear();
+            EdpCodeTextBox.Clear();
+            EnrollmentDataGridView.DataSource = null;
+        }
     }
 }

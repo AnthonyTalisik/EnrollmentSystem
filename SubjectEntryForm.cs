@@ -13,18 +13,18 @@ namespace EnrollmentSystem
 {
     public partial class SubjectEntryForm : Form
     {
+        // Connection string to the Access database
         string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Talisik\OneDrive\文档\School Works\APPSDEV22.accdb";
 
         public SubjectEntryForm()
         {
             InitializeComponent();
             Load += SubjectEntryForm_Load;
-
         }
 
         private void SubjectEntryForm_Load(object sender, EventArgs e)
         {
-            // Set up combo box items with display text and stored value
+            // Combo box items with display text and stored value
             var offerings = new Dictionary<int, string>()
             {
                 {1, "1 - First Sem"},
@@ -38,6 +38,16 @@ namespace EnrollmentSystem
             OfferingComboBox.SelectedIndex = -1; // no selection by default
         }
 
+        private void LoadSubjectData()
+        {
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                OleDbDataAdapter adapter = new OleDbDataAdapter("SELECT * FROM [SUBJECTFILE]", conn);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                SubjectDataGridView.DataSource = dt;
+            }
+        }
 
         private void SaveEntryButton_Click(object sender, EventArgs e)
         {
@@ -80,7 +90,7 @@ namespace EnrollmentSystem
                     subjectRow["SFSUBJDESC"] = DescriptionTextBox.Text;
                     subjectRow["SFSUBJUNITS"] = UnitsTextBox.Text;
 
-                    // ✅ Save the selected key (1, 2, or 3) as integer to DB
+                    // Save the selected key (1, 2, or 3) as integer to Database
                     if (OfferingComboBox.SelectedItem is KeyValuePair<int, string> selectedOffering)
                     {
                         subjectRow["SFSUBJREGOFRNG"] = selectedOffering.Key;
@@ -97,7 +107,24 @@ namespace EnrollmentSystem
                     subjectRow["SFSUBJCURRCODE"] = CurriculumTextBox.Text;
 
                     subjectDataSet.Tables["SubjectFile"].Rows.Add(subjectRow);
-                    subjectAdapter.Update(subjectDataSet, "SubjectFile");
+                    subjectAdapter.Update(subjectDataSet, "SubjectFile"); // Commit to DB
+
+                    // Re-fetch the inserted row from DB to ensure full data
+                    using (OleDbConnection conn = new OleDbConnection(connectionString))
+                    {
+                        conn.Open();
+                        string query = "SELECT * FROM SUBJECTFILE WHERE SFSUBJCODE = ? AND SFSUBJCOURSECODE = ?";
+                        OleDbCommand cmd = new OleDbCommand(query, conn);
+                        cmd.Parameters.AddWithValue("?", SubjectCodeTextBox.Text);
+                        cmd.Parameters.AddWithValue("?", CourseCodeTextBox.Text);
+
+                        OleDbDataAdapter adapter = new OleDbDataAdapter(cmd);
+                        DataTable result = new DataTable();
+                        adapter.Fill(result);
+
+                        SubjectDataGridView.DataSource = result; 
+                    }
+
                     MessageBox.Show("Entries Recorded");
 
                     // Handle Pre-Requisite or Co-Requisite
@@ -145,7 +172,7 @@ namespace EnrollmentSystem
             }
         }
 
-
+        //Clear when Cancel button is clicked
         private void CancelEntryButton_Click(object sender, EventArgs e)
         {
             SubjectCodeTextBox.Clear();

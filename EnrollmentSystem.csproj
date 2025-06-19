@@ -104,6 +104,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="StudentEntryForm.resx">
       <DependentUpon>StudentEntryForm.cs</DependentUpon>
@@ -123,6 +124,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Image1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\student.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\book.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\enroll.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\schedule.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

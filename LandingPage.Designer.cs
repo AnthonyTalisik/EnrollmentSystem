@@ -48,6 +48,7 @@
             // 
             this.EnrollmentButton.BackColor = System.Drawing.SystemColors.Info;
             this.EnrollmentButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EnrollmentButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.EnrollmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EnrollmentButton.Location = new System.Drawing.Point(391, 342);
             this.EnrollmentButton.Name = "EnrollmentButton";
@@ -57,7 +58,7 @@
             this.EnrollmentButton.UseVisualStyleBackColor = false;
             this.EnrollmentButton.Click += new System.EventHandler(this.EnrollmentButton_Click);
             // 
-            // Form1
+            // LandingPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -66,7 +67,7 @@
             this.Controls.Add(this.EnrollmentButton);
             this.Controls.Add(this.pictureBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
+            this.Name = "LandingPage";
             this.Text = "University of Cebu";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

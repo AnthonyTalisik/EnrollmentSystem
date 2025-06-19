@@ -255,6 +255,7 @@
             this.CancelEntryButton.TabIndex = 34;
             this.CancelEntryButton.Text = "Cancel";
             this.CancelEntryButton.UseVisualStyleBackColor = false;
+            this.CancelEntryButton.Click += new System.EventHandler(this.CancelEntryButton_Click);
             // 
             // TotalUnitsTextBox
             // 

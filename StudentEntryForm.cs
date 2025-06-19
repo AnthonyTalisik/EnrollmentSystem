@@ -14,6 +14,7 @@ namespace EnrollmentSystem
 {
     public partial class StudentEntryForm : Form
     {
+        // Connection string to the Access database
         string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Talisik\OneDrive\文档\School Works\APPSDEV22.accdb";
 
         public StudentEntryForm()
@@ -49,7 +50,7 @@ namespace EnrollmentSystem
                 if (findRow == null)
                 {
                     DataRow studentRow = studentDataSet.Tables["StudentFile"].NewRow();
-
+                    // Assigning values to the new row
                     studentRow["STFSTUDID"] = IdNumberTextBox.Text;
                     studentRow["STFSTUDFNAME"] = FirstNameTextBox.Text;
                     studentRow["STFSTUDMNAME"] = MiddleNameTextBox.Text;
@@ -84,12 +85,16 @@ namespace EnrollmentSystem
         }
 
 
-
+        // Clear the form fields when the Cancel button is clicked
         private void CancelButton_Click(object sender, EventArgs e)
         {
-
+            IdNumberTextBox.Clear();
+            FirstNameTextBox.Clear();
+            MiddleNameTextBox.Clear();
+            LastNameTextBox.Clear();
+            RemarksComboBox.SelectedIndex = -1;
+            YearTextBox.Clear();
+            IdNumberTextBox.Focus();
         }
-
-       
     }
 }

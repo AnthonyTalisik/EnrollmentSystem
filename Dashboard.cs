@@ -15,6 +15,16 @@ namespace EnrollmentSystem
         public Dashboard()
         {
             InitializeComponent();
+         // Handler for label and picture box to be clicked
+            StudentPictureBox.Click += StudentEntryButton_Click_1;
+            StudentLabel.Click += StudentEntryButton_Click_1;
+            SubjectPictureBox.Click += SubjectEntryButton_Click;
+            SubjectLabel.Click += SubjectEntryButton_Click;
+            SchedulePictureBox.Click += ScheduleEntryButton_Click;
+            ScheduleLabel.Click += ScheduleEntryButton_Click;
+            EnrollmentPictureBox.Click += EnrollmentEntryButton_Click;
+            EnrollmentLabel.Click += EnrollmentEntryButton_Click;
+
         }
 
 
@@ -29,7 +39,7 @@ namespace EnrollmentSystem
 
             DashboardPanel.Controls.Clear();
 
-            DashboardPanel.Padding = new Padding(3); // <-- Add this line
+            DashboardPanel.Padding = new Padding(3); 
             DashboardPanel.Controls.Add(studentForm);
             studentForm.Show();
         }
@@ -99,6 +109,6 @@ namespace EnrollmentSystem
                 borderColor, borderThickness, ButtonBorderStyle.Solid); // Bottom
         }
 
-        
+      
     }
 }

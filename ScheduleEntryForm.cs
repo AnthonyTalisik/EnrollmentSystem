@@ -13,6 +13,7 @@ namespace EnrollmentSystem
 {
     public partial class ScheduleEntryForm : Form
     {
+        // Connection string to the Access database
         string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Talisik\OneDrive\文档\School Works\APPSDEV22.accdb";
 
         public ScheduleEntryForm()
@@ -72,7 +73,7 @@ namespace EnrollmentSystem
                     studentDataSet.Tables["SubjectSchedFile"].Rows.Add(scheduleRow);
                     studentAdapter.Update(studentDataSet, "SubjectSchedFile");
 
-                    MessageBox.Show("Student entry saved successfully.");
+                    MessageBox.Show("Subject entry saved successfully.");
 
                     // Clear all fields
                     SubjectEdpCodeTextBox.Clear();
@@ -93,6 +94,20 @@ namespace EnrollmentSystem
             {
                 MessageBox.Show("Error: " + error.Message);
             }
+        }
+
+        // Clear all fields when the Cancel button is clicked
+        private void CancelEntryButton_Click(object sender, EventArgs e)
+        {
+            // Clear all fields
+            SubjectEdpCodeTextBox.Clear();
+            SubjectCodeTextBox.Clear();
+            DaysTextBox.Clear();
+            RoomTextBox.Clear();
+            StatusComboBox.SelectedIndex = -1;
+            SectionTextBox.Clear();
+            SchoolYearTextBox.Clear();
+            SubjectEdpCodeTextBox.Focus();
         }
     }
 }
